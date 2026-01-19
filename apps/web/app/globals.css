@@ -1,38 +1,29 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #009485;
+  --color-primary-hover: #007a6e;
+  --color-accent: #E76F51;
+  --color-background-light: #f9fafa;
+  --color-background-dark: #121212;
+  --color-surface-light: #ffffff;
+  --color-surface-dark: #1e1e1e;
+  --color-text-main: #101818;
+  --color-text-muted: #6B7280;
+
+  --font-display: var(--font-manrope);
+  --font-body: var(--font-noto-sans);
+
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-soft-hover: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* 
+   We map standard tailwind utilities to our custom values if needed, 
+   but in v4 @theme adds them as utilities.
+   e.g. bg-primary will use --color-primary.
+*/
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  font-family: var(--font-display);
 }

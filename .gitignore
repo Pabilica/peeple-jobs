@@ -37,5 +37,9 @@ yarn-error.log*
 .DS_Store
 *.pem
 
+
 # Documentation
 docs/
+
+# Stitch Export
+stitch_peeple_jobs_landing_page/

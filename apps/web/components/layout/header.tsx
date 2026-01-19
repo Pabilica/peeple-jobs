@@ -37,10 +37,10 @@ export function Header() {
                             기업 정보
                         </Link>
                         <Link
-                            href="/resume"
+                            href="/resumes/new"
                             className="text-gray-600 hover:text-indigo-600 transition-colors font-medium"
                         >
-                            이력서 관리
+                            이력서 작성
                         </Link>
                         <Link
                             href="/visa"
@@ -114,10 +114,10 @@ export function Header() {
                                 기업 정보
                             </Link>
                             <Link
-                                href="/resume"
+                                href="/resumes/new"
                                 className="text-gray-600 hover:text-indigo-600 font-medium"
                             >
-                                이력서 관리
+                                이력서 작성
                             </Link>
                             <Link
                                 href="/visa"

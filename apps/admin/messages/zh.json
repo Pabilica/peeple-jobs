@@ -1,0 +1,10 @@
+{
+    "Metadata": {
+        "title": "Peeple Jobs 管理员",
+        "description": "Peeple Jobs 管理面板"
+    },
+    "Common": {
+        "login": "登录",
+        "dashboard": "仪表板"
+    }
+}

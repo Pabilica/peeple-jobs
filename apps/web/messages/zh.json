@@ -1,0 +1,11 @@
+{
+    "Metadata": {
+        "title": "Peeple Jobs",
+        "description": "面向外国人的求职门户"
+    },
+    "Common": {
+        "login": "登录",
+        "register": "注册",
+        "search": "搜索"
+    }
+}

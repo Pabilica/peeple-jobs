@@ -1,0 +1,10 @@
+{
+    "Metadata": {
+        "title": "피플잡스 관리자",
+        "description": "피플잡스 관리자 패널"
+    },
+    "Common": {
+        "login": "로그인",
+        "dashboard": "대시보드"
+    }
+}

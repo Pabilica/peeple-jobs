@@ -1,0 +1,10 @@
+{
+    "Metadata": {
+        "title": "Peeple Jobs Admin",
+        "description": "Admin panel for Peeple Jobs"
+    },
+    "Common": {
+        "login": "Login",
+        "dashboard": "Dashboard"
+    }
+}

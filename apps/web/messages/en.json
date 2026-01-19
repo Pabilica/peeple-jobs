@@ -1,0 +1,11 @@
+{
+    "Metadata": {
+        "title": "Peeple Jobs",
+        "description": "Job portal for foreigners in Korea"
+    },
+    "Common": {
+        "login": "Login",
+        "register": "Register",
+        "search": "Search"
+    }
+}

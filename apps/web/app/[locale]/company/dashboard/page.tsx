@@ -1,18 +1,35 @@
-import { MOCK_COMPANY_STATS } from "@/lib/mock/company-stats";
 import { StatsOverview } from "@/components/company/stats-overview";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { getCompany } from "@/lib/api/companies";
+import { getCompanyStats } from "@/lib/api/stats";
+import { redirect } from "next/navigation";
 
-export default function CompanyDashboardPage() {
+export default async function CompanyDashboardPage() {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+        redirect('/login');
+    }
+
+    const company = await getCompany(user.id);
+    if (!company) {
+        redirect('/onboarding');
+    }
+
+    const stats = await getCompanyStats(company.id);
+
     return (
         <div className="container py-8 px-4 md:px-6 space-y-8">
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                     <p className="text-muted-foreground">
-                        Welcome back! Here's an overview of your hiring activity.
+                        Welcome back, {company.company_name}! Here's your overview.
                     </p>
                 </div>
                 <Link href="/company/jobs/new">
@@ -20,7 +37,7 @@ export default function CompanyDashboardPage() {
                 </Link>
             </div>
 
-            <StatsOverview stats={MOCK_COMPANY_STATS} />
+            <StatsOverview stats={stats} />
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
@@ -31,23 +48,21 @@ export default function CompanyDashboardPage() {
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <ul className="space-y-4">
-                            {MOCK_COMPANY_STATS.recentActivity.map((activity) => (
-                                <li key={activity.id} className="flex items-start pb-4 border-b last:border-0 last:pb-0">
-                                    <div className="flex-1 space-y-1">
-                                        <p className="text-sm font-medium leading-none">
-                                            {activity.message}
-                                        </p>
-                                        <p className="text-xs text-muted-foreground">
-                                            {new Date(activity.createdAt).toLocaleString()}
-                                        </p>
+                        <div className="space-y-4">
+                            {stats.recentActivity && stats.recentActivity.length > 0 ? (
+                                stats.recentActivity.map((activity: any) => (
+                                    <div key={activity.id} className="flex items-center justify-between border-b pb-2 last:border-0 last:pb-0">
+                                        <div className="flex flex-col">
+                                            <span className="text-sm font-medium">{activity.display}</span>
+                                            <span className="text-xs text-muted-foreground">{new Date(activity.created_at).toLocaleDateString()}</span>
+                                        </div>
+                                        <ArrowRight className="h-4 w-4 text-muted-foreground" />
                                     </div>
-                                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                                        <ArrowRight className="h-4 w-4" />
-                                    </Button>
-                                </li>
-                            ))}
-                        </ul>
+                                ))
+                            ) : (
+                                <p className="text-sm text-muted-foreground">No recent activity.</p>
+                            )}
+                        </div>
                     </CardContent>
                 </Card>
 

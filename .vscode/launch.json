@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Next.js: Web (Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/apps/web"
+        },
+        {
+            "name": "Next.js: Admin (Chrome)",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3001",
+            "webRoot": "${workspaceFolder}/apps/admin"
+        },
+        {
+            "name": "Next.js: Debug Server-Side (Web)",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/apps/web",
+            "runtimeExecutable": "pnpm",
+            "runtimeArgs": [
+                "dev"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Next.js: Debug Server-Side (Admin)",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/apps/admin",
+            "runtimeExecutable": "pnpm",
+            "runtimeArgs": [
+                "dev"
+            ],
+            "port": 3001,
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ]
+}

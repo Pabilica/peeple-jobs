@@ -1,4 +1,5 @@
 import { LoginForm } from "@/components/auth/login-form";
+import { SocialAuthButtons } from "@/components/auth/social-auth-buttons";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import {
@@ -53,6 +54,19 @@ export default function LoginPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
+                            <div className="mb-4">
+                                <SocialAuthButtons />
+                                <div className="relative my-4">
+                                    <div className="absolute inset-0 flex items-center">
+                                        <span className="w-full border-t" />
+                                    </div>
+                                    <div className="relative flex justify-center text-xs uppercase">
+                                        <span className="bg-background px-2 text-muted-foreground">
+                                            Or continue with
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                             <LoginForm />
                         </CardContent>
                         <CardFooter className="flex flex-wrap items-center justify-between gap-2">

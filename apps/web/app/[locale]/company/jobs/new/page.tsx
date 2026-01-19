@@ -18,11 +18,16 @@ import * as z from "zod";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
+import { createJob } from "@/lib/api/jobs";
+import { getCompany } from "@/lib/api/companies";
+import { createClient } from "@/lib/supabase/client";
+// import { toast } from "sonner"; // Removed as it might be missing
+// Just using alert/console as per previous code to be safe.
 
 const jobFormSchema = z.object({
     title: z.string().min(2, "Title must be at least 2 characters."),
     location: z.string().min(2, "Location is required."),
-    salaryMin: z.string().optional(), // Treat as string for input, convert later
+    salaryMin: z.string().optional(),
     salaryMax: z.string().optional(),
     description: z.string().min(10, "Description must be at least 10 characters."),
     visaE7: z.boolean(),
@@ -46,11 +51,51 @@ export default function JobPostingPage() {
         },
     });
 
-    function onSubmit(values: z.infer<typeof jobFormSchema>) {
-        console.log(values);
-        // Mock API call
-        alert("Job Posted Successfully! (Mock)");
-        router.push("/company/jobs");
+    async function onSubmit(values: z.infer<typeof jobFormSchema>) {
+        try {
+            console.log("Submitting...", values);
+            const supabase = createClient();
+
+            // 1. Get Current User
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                alert("Please log in to post a job.");
+                router.push('/login');
+                return;
+            }
+
+            // 2. Get Company Profile
+            const company = await getCompany(user.id);
+            if (!company) {
+                alert("Company profile not found. Please complete onboarding.");
+                // router.push('/onboarding/company'); 
+                return;
+            }
+
+            // 3. Prepare Job Data
+            const jobData = {
+                company_id: company.id,
+                title: values.title,
+                location: values.location,
+                description: `${values.description}\n\nVisa Requirements: ${[values.visaE7 && 'E-7', values.visaF2 && 'F-2', values.visaF5 && 'F-5'].filter(Boolean).join(', ')}`,
+                salary_min: values.salaryMin ? parseInt(values.salaryMin) : null,
+                salary_max: values.salaryMax ? parseInt(values.salaryMax) : null,
+                status: 'active' as const,
+                visa_sponsorship: values.visaE7 || values.visaF2 || values.visaF5,
+                employment_type: 'full-time', // Default for now, could be field
+                currency: 'KRW'
+            };
+
+            // 4. Create Job
+            await createJob(jobData);
+
+            alert("Job Posted Successfully!");
+            router.push("/company/jobs");
+            router.refresh(); // Refresh server components
+        } catch (error) {
+            console.error("Error posting job:", error);
+            alert("Failed to post job. See console.");
+        }
     }
 
     return (
@@ -102,7 +147,7 @@ export default function JobPostingPage() {
                                     name="salaryMax"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Max Salary (Optional)</FormLabel>
+                                            <FormLabel>Max Salary</FormLabel>
                                             <FormControl>
                                                 <Input type="number" placeholder="50000000" {...field} />
                                             </FormControl>

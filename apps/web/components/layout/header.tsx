@@ -1,10 +1,51 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { User } from "@supabase/supabase-js";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
 
 export function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        const supabase = createClient();
+
+        async function getUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            setUser(user);
+        }
+
+        getUser();
+
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+            (event, session) => {
+                if (session) setUser(session.user);
+                else setUser(null);
+            }
+        );
+
+        return () => {
+            subscription.unsubscribe();
+        };
+    }, []);
+
+    const handleLogout = async () => {
+        const supabase = createClient();
+        await supabase.auth.signOut();
+        window.location.reload();
+    };
 
     return (
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
@@ -36,12 +77,22 @@ export function Header() {
                         >
                             기업 정보
                         </Link>
-                        <Link
-                            href="/resumes/new"
-                            className="text-gray-600 hover:text-indigo-600 transition-colors font-medium"
-                        >
-                            이력서 작성
-                        </Link>
+                        {user && (
+                            <>
+                                <Link
+                                    href="/applications"
+                                    className="text-gray-600 hover:text-indigo-600 transition-colors font-medium"
+                                >
+                                    지원 현황
+                                </Link>
+                                <Link
+                                    href="/resumes/new"
+                                    className="text-gray-600 hover:text-indigo-600 transition-colors font-medium"
+                                >
+                                    이력서 작성
+                                </Link>
+                            </>
+                        )}
                         <Link
                             href="/visa"
                             className="text-gray-600 hover:text-indigo-600 transition-colors font-medium"
@@ -52,18 +103,58 @@ export function Header() {
 
                     {/* Auth Buttons */}
                     <div className="hidden md:flex items-center gap-3">
-                        <Link
-                            href="/login"
-                            className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium transition-colors"
-                        >
-                            로그인
-                        </Link>
-                        <Link
-                            href="/register"
-                            className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md hover:shadow-lg"
-                        >
-                            회원가입
-                        </Link>
+                        {user ? (
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                                        <Avatar className="h-9 w-9">
+                                            <AvatarFallback>
+                                                {user.email?.substring(0, 2).toUpperCase()}
+                                            </AvatarFallback>
+                                        </Avatar>
+                                    </Button>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="w-56" align="end" forceMount>
+                                    <DropdownMenuLabel className="font-normal">
+                                        <div className="flex flex-col space-y-1">
+                                            <p className="text-sm font-medium leading-none">{user.user_metadata?.full_name || 'User'}</p>
+                                            <p className="text-xs leading-none text-muted-foreground">
+                                                {user.email}
+                                            </p>
+                                        </div>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/profile">Profile</Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/applications">My Applications</Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuItem asChild>
+                                        <Link href="/messages">Messages</Link>
+                                    </DropdownMenuItem>
+                                    <DropdownMenuSeparator />
+                                    <DropdownMenuItem onClick={handleLogout}>
+                                        Log out
+                                    </DropdownMenuItem>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/login"
+                                    className="px-4 py-2 text-gray-700 hover:text-indigo-600 font-medium transition-colors"
+                                >
+                                    로그인
+                                </Link>
+                                <Link
+                                    href="/register"
+                                    className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:from-indigo-700 hover:to-purple-700 transition-all shadow-md hover:shadow-lg"
+                                >
+                                    회원가입
+                                </Link>
+                            </>
+                        )}
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -113,12 +204,22 @@ export function Header() {
                             >
                                 기업 정보
                             </Link>
-                            <Link
-                                href="/resumes/new"
-                                className="text-gray-600 hover:text-indigo-600 font-medium"
-                            >
-                                이력서 작성
-                            </Link>
+                            {user && (
+                                <>
+                                    <Link
+                                        href="/applications"
+                                        className="text-gray-600 hover:text-indigo-600 font-medium"
+                                    >
+                                        지원 현황
+                                    </Link>
+                                    <Link
+                                        href="/resumes/new"
+                                        className="text-gray-600 hover:text-indigo-600 font-medium"
+                                    >
+                                        이력서 작성
+                                    </Link>
+                                </>
+                            )}
                             <Link
                                 href="/visa"
                                 className="text-gray-600 hover:text-indigo-600 font-medium"
@@ -126,18 +227,24 @@ export function Header() {
                                 비자 정보
                             </Link>
                             <div className="flex gap-3 pt-4 border-t border-gray-100">
-                                <Link
-                                    href="/login"
-                                    className="flex-1 text-center px-4 py-2 border border-gray-300 rounded-lg font-medium"
-                                >
-                                    로그인
-                                </Link>
-                                <Link
-                                    href="/register"
-                                    className="flex-1 text-center px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium"
-                                >
-                                    회원가입
-                                </Link>
+                                {user ? (
+                                    <Button onClick={handleLogout} className="w-full">Log out</Button>
+                                ) : (
+                                    <>
+                                        <Link
+                                            href="/login"
+                                            className="flex-1 text-center px-4 py-2 border border-gray-300 rounded-lg font-medium"
+                                        >
+                                            로그인
+                                        </Link>
+                                        <Link
+                                            href="/register"
+                                            className="flex-1 text-center px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium"
+                                        >
+                                            회원가입
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

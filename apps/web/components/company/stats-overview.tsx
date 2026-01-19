@@ -1,9 +1,16 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CompanyStats } from "@/lib/mock/company-stats";
+// import { CompanyStats } from "@/lib/mock/company-stats"; // Decoupled
 import { Users, Briefcase, Eye, Activity } from "lucide-react";
 
+export interface DashboardStats {
+    activeJobs: number;
+    totalApplicants: number;
+    totalViews: number;
+    recentActivity?: any[]; // We don't use this in this component, but parent might pass it
+}
+
 interface Props {
-    stats: CompanyStats;
+    stats: DashboardStats;
 }
 
 export function StatsOverview({ stats }: Props) {

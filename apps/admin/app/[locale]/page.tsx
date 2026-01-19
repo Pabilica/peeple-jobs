@@ -1,26 +1,78 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { getDashboardStats, getRecentActivity } from "@/lib/api/dashboard";
+import { AdminStatsCards } from "@/components/dashboard/admin-stats";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { requireAdmin } from "@/lib/auth";
 
-export default function Home() {
+export default async function AdminDashboardPage() {
+  await requireAdmin();
+  const stats = await getDashboardStats();
+  const recentActivity = await getRecentActivity();
+
+  // Adapt to match what AdminStatsCards expects (using MOCK structure as base)
+  const dashboardStats = {
+    ...stats, // Spread the expanded stats
+    recentActivity: [], // Component expects this to be part of stats? Or just mock data structure had it?
+    // Let's check mock structure if needed, but likely the stats prop expects a flat object with these numbers
+  };
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Admin Portal&nbsp;
-          <code className="font-mono font-bold">apps/admin</code>
-        </p>
+    <div className="container py-8 px-4 md:px-6 space-y-8">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
+          <p className="text-muted-foreground">
+            Overview of platform performance and moderation tasks.
+          </p>
+        </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-to-br before:from-transparent before:to-blue-500 before:opacity-10 before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-to-t after:from-sky-900 after:via-[#0141ff] after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] before:lg:h-[360px] z-[-1]">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-6xl text-center">
-          Peeple Jobs Admin
-        </h1>
-      </div>
+      <AdminStatsCards stats={dashboardStats} />
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left mt-10">
-        <Link href="/login">
-          <Button size="lg">Login to Dashboard</Button>
-        </Link>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <Card className="col-span-4">
+          <CardHeader>
+            <CardTitle>Recent Activity</CardTitle>
+            <CardDescription>
+              Latest system events and user actions.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-8">
+              {recentActivity.map((activity) => (
+                <div key={activity.id} className="flex items-center">
+                  <Avatar className="h-9 w-9">
+                    <AvatarFallback>
+                      {activity.type === 'job_post' ? 'JP' :
+                        activity.type === 'user_signup' ? 'US' :
+                          activity.type === 'report' ? 'RP' : 'SY'}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="ml-4 space-y-1">
+                    <p className="text-sm font-medium leading-none">{activity.message}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(activity.createdAt).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="ml-auto font-medium text-xs text-muted-foreground uppercase">
+                    {activity.type.replace('_', ' ')}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="col-span-3">
+          <CardHeader>
+            <CardTitle>Pending Moderation</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-center h-40 text-muted-foreground">
+              No urgent tasks.
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

@@ -1,11 +1,11 @@
-import { MOCK_JOBS } from "@/lib/mock/jobs";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, MapPin, Banknote, Clock, ArrowLeft, Globe } from "lucide-react";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { createClient } from "@/lib/supabase/server";
+import { ApplicationDialog } from "@/components/jobs/application-dialog";
 
 interface Props {
     params: Promise<{ id: string; locale: string }>;
@@ -13,18 +13,35 @@ interface Props {
 
 export default async function JobDetailPage({ params }: Props) {
     const { id, locale } = await params;
-    const job = MOCK_JOBS.find((j) => j.id === id);
+    const supabase = await createClient();
 
-    if (!job) {
+    const { data: job, error } = await supabase
+        .from('jobs')
+        .select(`
+            *,
+            companies (
+                id,
+                company_name,
+                logo_url,
+                description,
+                website,
+                industry,
+                location
+            )
+        `)
+        .eq('id', id)
+        .single();
+
+    if (error || !job) {
         notFound();
     }
 
-    const formatSalary = (min: number | undefined, max: number | undefined) => {
-        if (min === undefined) return "Negotiable";
+    const formatSalary = (min: number | null, max: number | null) => {
+        if (!min) return "Negotiable";
 
         const formatter = new Intl.NumberFormat(locale === 'en' ? 'en-US' : 'ko-KR', {
             style: 'currency',
-            currency: 'KRW',
+            currency: job.currency || 'KRW',
             maximumFractionDigits: 0
         });
 
@@ -33,6 +50,8 @@ export default async function JobDetailPage({ params }: Props) {
         }
         return `${formatter.format(min)}+`;
     };
+
+    const company = job.companies as any; // Type assertion for now
 
     return (
         <div className="container py-10 px-4 md:px-6 max-w-5xl">
@@ -50,19 +69,21 @@ export default async function JobDetailPage({ params }: Props) {
                     {/* Header */}
                     <div>
                         <h1 className="text-3xl font-bold tracking-tight mb-2">
-                            {locale === 'ko' ? job.title : (job.titleEn || job.title)}
+                            {job.title}
                         </h1>
                         <div className="flex items-center text-lg text-muted-foreground mb-4">
                             <Building2 className="mr-2 h-5 w-5" />
                             <span className="font-medium">
-                                {locale === 'ko' ? job.company?.companyName : (job.company?.companyNameEn || job.company?.companyName || "Unknown Company")}
+                                {company?.company_name || "Unknown Company"}
                             </span>
                         </div>
                         <div className="flex flex-wrap gap-2">
-                            {job.jobType === 'full_time' && <Badge variant="secondary">Full Time</Badge>}
-                            {job.visaRequirements?.map(visa => (
-                                <Badge key={visa} variant="outline">{visa}</Badge>
-                            ))}
+                            <Badge variant="secondary" className="capitalize">
+                                {job.employment_type?.replace('-', ' ')}
+                            </Badge>
+                            {job.visa_sponsorship && (
+                                <Badge variant="outline">Visa Sponsorship Available</Badge>
+                            )}
                         </div>
                     </div>
 
@@ -75,15 +96,6 @@ export default async function JobDetailPage({ params }: Props) {
                             <p className="whitespace-pre-line text-muted-foreground">
                                 {job.description}
                             </p>
-
-                            <div className="pt-4">
-                                <h3 className="font-semibold mb-2">Required Languages</h3>
-                                <div className="flex gap-2">
-                                    {job.requiredLanguages?.map(lang => (
-                                        <Badge key={lang} variant="secondary" className="uppercase">{lang}</Badge>
-                                    ))}
-                                </div>
-                            </div>
                         </CardContent>
                     </Card>
                 </div>
@@ -92,9 +104,10 @@ export default async function JobDetailPage({ params }: Props) {
                 <div className="space-y-6">
                     <Card>
                         <CardContent className="p-6 space-y-4">
-                            <Button className="w-full text-lg py-6 shadow-lg">
-                                Apply Now
-                            </Button>
+                            <ApplicationDialog
+                                jobId={job.id}
+                                jobTitle={job.title}
+                            />
                             <Button variant="outline" className="w-full">
                                 Save Job
                             </Button>
@@ -110,7 +123,7 @@ export default async function JobDetailPage({ params }: Props) {
                                 <Banknote className="mr-2 h-4 w-4 text-muted-foreground mt-0.5" />
                                 <div>
                                     <span className="block font-medium">Salary</span>
-                                    <span className="text-muted-foreground">{formatSalary(job.salaryMin, job.salaryMax)}</span>
+                                    <span className="text-muted-foreground">{formatSalary(job.salary_min, job.salary_max)}</span>
                                 </div>
                             </div>
                             <div className="flex items-start">
@@ -124,14 +137,14 @@ export default async function JobDetailPage({ params }: Props) {
                                 <Globe className="mr-2 h-4 w-4 text-muted-foreground mt-0.5" />
                                 <div>
                                     <span className="block font-medium">Industry</span>
-                                    <span className="text-muted-foreground">{job.company?.industry || "N/A"}</span>
+                                    <span className="text-muted-foreground">{company?.industry || "N/A"}</span>
                                 </div>
                             </div>
                             <div className="flex items-start">
                                 <Clock className="mr-2 h-4 w-4 text-muted-foreground mt-0.5" />
                                 <div>
                                     <span className="block font-medium">Posted</span>
-                                    <span className="text-muted-foreground">{new Date(job.createdAt).toLocaleDateString()}</span>
+                                    <span className="text-muted-foreground">{new Date(job.created_at).toLocaleDateString()}</span>
                                 </div>
                             </div>
                         </CardContent>
@@ -142,9 +155,9 @@ export default async function JobDetailPage({ params }: Props) {
                             <CardTitle className="text-base">About Company</CardTitle>
                         </CardHeader>
                         <CardContent className="text-sm text-muted-foreground space-y-2">
-                            <p>{job.company?.description || "No description available."}</p>
-                            {job.companyId && (
-                                <Link href={`/companies/${job.companyId}`} className="text-primary hover:underline block mt-2">
+                            <p>{company?.description || "No description available."}</p>
+                            {company?.id && (
+                                <Link href={`/companies/${company.id}`} className="text-primary hover:underline block mt-2">
                                     View Company Profile
                                 </Link>
                             )}

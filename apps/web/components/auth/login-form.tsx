@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
-// import { createClient } from "@/lib/supabase/client" // TODO: Enable when connecting to Supabase
+import { createClient } from "@/lib/supabase/client"
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -39,22 +39,21 @@ export function LoginForm({ className, ...props }: LoginFormProps) {
         setIsLoading(true)
 
         try {
-            // Mock login for now or uncomment Supabase auth
-            console.log("Login data:", data)
-            // const { error } = await supabase.auth.signInWithPassword({
-            //   email: data.email,
-            //   password: data.password,
-            // })
+            const supabase = createClient()
+            const { error } = await supabase.auth.signInWithPassword({
+                email: data.email,
+                password: data.password,
+            })
 
-            // if (error) {
-            //   console.error(error)
-            //   return
-            // }
+            if (error) {
+                console.error(error)
+                // In a real app, I'd set form error here
+                alert("Login failed: " + error.message)
+                return
+            }
 
-            // router.push("/dashboard")
-
-            // Simulate delay
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            router.push("/")
+            router.refresh()
 
         } catch (error) {
             console.error(error)

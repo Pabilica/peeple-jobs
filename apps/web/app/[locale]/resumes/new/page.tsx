@@ -1,10 +1,36 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ArrowRight, FileText, Upload } from "lucide-react";
+import Link from "next/link";
+import { ResumeBuilder } from "@/components/resumes/resume-builder";
 
-export default function ResumeBuilderPage() {
+import { createClient } from "@/lib/supabase/server";
+import { getMyResumes } from "@/lib/api/resumes";
+
+interface Props {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function ResumeBuilderPage({ searchParams }: Props) {
+    const { mode } = await searchParams;
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    const resumes = user ? await getMyResumes(user.id) : [];
+
+    if (mode === 'builder') {
+        return (
+            <div className="container py-10 px-4 md:px-6">
+                <div className="mb-6">
+                    <Link href="/resumes/new" className="text-sm text-muted-foreground hover:underline">
+                        &larr; Back to Options
+                    </Link>
+                </div>
+                <ResumeBuilder />
+            </div>
+        );
+    }
+
     return (
         <div className="container py-10 px-4 md:px-6 max-w-4xl">
             <div className="mb-8">
@@ -31,8 +57,10 @@ export default function ResumeBuilderPage() {
                             <li>Visa status verification badge</li>
                             <li>Korean & English support</li>
                         </ul>
-                        <Button className="w-full">
-                            Start Building <ArrowRight className="ml-2 h-4 w-4" />
+                        <Button className="w-full" asChild>
+                            <Link href="/resumes/new?mode=builder">
+                                Start Building <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
                         </Button>
                     </CardContent>
                 </Card>
@@ -59,9 +87,28 @@ export default function ResumeBuilderPage() {
 
             <div className="mt-12">
                 <h2 className="text-xl font-semibold mb-4">My Resumes</h2>
-                <div className="text-center py-12 border rounded-lg bg-muted/20">
-                    <p className="text-muted-foreground mb-4">You haven't created any resumes yet.</p>
-                </div>
+                {resumes.length > 0 ? (
+                    <div className="grid gap-4 md:grid-cols-2">
+                        {resumes.map((resume: any) => (
+                            <div key={resume.id} className="p-4 border rounded-lg flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <FileText className="h-8 w-8 text-primary" />
+                                    <div>
+                                        <p className="font-medium">{resume.title}</p>
+                                        <p className="text-xs text-muted-foreground">{new Date(resume.created_at).toLocaleDateString()}</p>
+                                    </div>
+                                </div>
+                                <Button variant="ghost" size="sm" asChild>
+                                    <a href={resume.file_url} target="_blank" rel="noopener noreferrer">View</a>
+                                </Button>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="text-center py-12 border rounded-lg bg-muted/20">
+                        <p className="text-muted-foreground mb-4">You haven't created any resumes yet.</p>
+                    </div>
+                )}
             </div>
         </div>
     );

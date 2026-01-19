@@ -16,10 +16,10 @@ export const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8">
-                        <Link className="text-sm font-semibold text-text-muted hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors" href="#">Find Jobs</Link>
-                        <Link className="text-sm font-semibold text-text-muted hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors" href="#">Companies</Link>
-                        <Link className="text-sm font-semibold text-text-muted hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors" href="#">Visa Info</Link>
-                        <Link className="text-sm font-semibold text-text-muted hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors" href="#">Community</Link>
+                        <Link href="/jobs" className="text-sm font-semibold text-primary">Jobs</Link>
+                        <Link href="/dashboard" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Dashboard</Link>
+                        <Link href="/onboarding/visa" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Visa Guide</Link>
+                        <Link href="/resume" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Resume</Link>
                     </div>
 
                     {/* Right Actions */}

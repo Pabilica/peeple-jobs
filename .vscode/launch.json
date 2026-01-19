@@ -20,8 +20,9 @@
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceFolder}/apps/web",
-            "runtimeExecutable": "pnpm",
+            "runtimeExecutable": "npm",
             "runtimeArgs": [
+                "run",
                 "dev"
             ],
             "skipFiles": [
@@ -33,8 +34,9 @@
             "type": "node",
             "request": "launch",
             "cwd": "${workspaceFolder}/apps/admin",
-            "runtimeExecutable": "pnpm",
+            "runtimeExecutable": "npm",
             "runtimeArgs": [
+                "run",
                 "dev"
             ],
             "port": 3001,

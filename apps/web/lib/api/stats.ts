@@ -46,41 +46,37 @@ export async function getCompanyStats(companyId: string) {
 
     if (appsError) throw appsError;
 
-    return {
-        activeJobs: activeJobs || 0,
-        totalApplicants: totalApplicants || 0,
-        totalViews: totalViews,
-        // 4. Get Recent Activity (Last 5 applications)
-        const { data: recentApps, error: recentError } = await supabase
-            .from('applications')
-            .select(`
+    // 4. Get Recent Activity (Last 5 applications)
+    const { data: recentApps, error: recentError } = await supabase
+        .from('applications')
+        .select(`
             id,
             created_at,
             status,
             jobs (title),
             users (full_name)
         `)
-            .in('job_id', jobs?.map(j => j.id) || [])
-            .order('created_at', { ascending: false })
-            .limit(5);
+        .in('job_id', jobs?.map(j => j.id) || [])
+        .order('created_at', { ascending: false })
+        .limit(5);
 
-        if(recentError) {
-            console.error("Error fetching recent activity:", recentError);
-        }
+    if (recentError) {
+        console.error("Error fetching recent activity:", recentError);
+    }
 
     const recentActivity = recentApps?.map(app => ({
-            id: app.id,
-            // @ts-ignore
-            type: 'new_application',
-            // @ts-ignore
-            display: `${app.users?.full_name} applied for ${app.jobs?.title}`,
-            created_at: app.created_at
-        })) || [];
+        id: app.id,
+        // @ts-ignore
+        type: 'new_application',
+        // @ts-ignore
+        display: `${app.users?.full_name} applied for ${app.jobs?.title}`,
+        created_at: app.created_at
+    })) || [];
 
-        return {
-            activeJobs: activeJobs || 0,
-            totalApplicants: totalApplicants || 0,
-            totalViews: totalViews,
-            recentActivity
-        };
-    }
+    return {
+        activeJobs: activeJobs || 0,
+        totalApplicants: totalApplicants || 0,
+        totalViews: totalViews,
+        recentActivity
+    };
+}

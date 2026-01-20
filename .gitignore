@@ -39,7 +39,7 @@ yarn-error.log*
 
 
 # Documentation
-docs/
+# docs/
 
 # Stitch Export
 stitch_peeple_jobs_landing_page/

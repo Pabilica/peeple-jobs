@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Link } from '@/navigation';
-import { Navbar } from '@/app/components/Navbar'; // Adjust import path if needed (might be ../../components/Navbar) - Actually standard is to import from centralized components or local. Let's assume standard Navbar is intended.
+
 // Note: In previous file Navbar was imported from '../components/Navbar' in app/interviews/page.tsx, which is app/components/Navbar.tsx.
 // So here it should be '../../components/Navbar' in app/company/postings/page.tsx? No, app/components/Navbar.tsx is likely accessible via @/components or ../../components if relative.
 // Wait, checking previous file content. 'import { Navbar } from '../components/Navbar';' in app/interviews/page.tsx. Use correct relative path.
@@ -58,7 +58,6 @@ export default function CompanyPostingsPage() {
         ? MOCK_POSTINGS
         : MOCK_POSTINGS.filter(p => p.status === filter);
 
-    return (
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">

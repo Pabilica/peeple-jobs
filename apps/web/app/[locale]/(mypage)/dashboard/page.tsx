@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Navbar } from '@/app/components/Navbar';
 import { MOCK_USER_STATS, RECOMMENDED_JOBS } from '@/lib/mock';
 import { ScrappedJobs } from './components/ScrappedJobs';
 import { InterestCompanies } from './components/InterestCompanies';
@@ -126,66 +125,62 @@ export default function DashboardPage() {
     };
 
     return (
-        <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display">
-            <Navbar />
+        <div className="p-6 lg:p-10 pb-20">
+            <div className="max-w-7xl mx-auto space-y-8">
 
-            <main className="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
-                <div className="flex flex-col gap-8">
-
-                    {/* Welcome Header */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div>
-                            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
-                                Welcome back, Alex! 👋
-                            </h1>
-                            <p className="text-slate-500 dark:text-slate-400 mt-1">
-                                You have <span className="text-primary font-bold">2 unread notifications</span> today.
-                            </p>
-                        </div>
-                        <div className="flex gap-3">
-                            <Link href="/resume" className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2">
-                                <span className="material-symbols-outlined text-[20px]">edit_document</span>
-                                <span>Edit Resume</span>
-                            </Link>
-                        </div>
+                {/* Welcome Header */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+                            Welcome back, Alex! 👋
+                        </h1>
+                        <p className="text-slate-500 dark:text-slate-400 mt-1">
+                            You have <span className="text-primary font-bold">2 unread notifications</span> today.
+                        </p>
                     </div>
-
-                    {/* Navigation Tabs */}
-                    <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 dark:border-slate-800">
-                        <button
-                            onClick={() => setActiveTab('overview')}
-                            className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'overview' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
-                        >
-                            Overview
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('scraps')}
-                            className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'scraps' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
-                        >
-                            Saved Jobs
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('companies')}
-                            className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'companies' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
-                        >
-                            Following
-                        </button>
-                        <button
-                            onClick={() => setActiveTab('notifications')}
-                            className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors flex items-center gap-2 ${activeTab === 'notifications' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
-                        >
-                            Notifications
-                            <span className="bg-red-500 text-white text-[10px] px-1.5 rounded-full">2</span>
-                        </button>
+                    <div className="flex gap-3">
+                        <Link href="/resume" className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex items-center gap-2">
+                            <span className="material-symbols-outlined text-[20px]">edit_document</span>
+                            <span>Edit Resume</span>
+                        </Link>
                     </div>
-
-                    {/* Content Area */}
-                    <div className="min-h-[500px]">
-                        {renderContent()}
-                    </div>
-
                 </div>
-            </main>
+
+                {/* Navigation Tabs */}
+                <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-200 dark:border-slate-800">
+                    <button
+                        onClick={() => setActiveTab('overview')}
+                        className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'overview' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
+                    >
+                        Overview
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('scraps')}
+                        className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'scraps' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
+                    >
+                        Saved Jobs
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('companies')}
+                        className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors ${activeTab === 'companies' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
+                    >
+                        Following
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('notifications')}
+                        className={`px-4 py-2 rounded-lg font-bold text-sm whitespace-nowrap transition-colors flex items-center gap-2 ${activeTab === 'notifications' ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'}`}
+                    >
+                        Notifications
+                        <span className="bg-red-500 text-white text-[10px] px-1.5 rounded-full">2</span>
+                    </button>
+                </div>
+
+                {/* Content Area */}
+                <div className="min-h-[500px]">
+                    {renderContent()}
+                </div>
+
+            </div>
         </div>
     );
 }

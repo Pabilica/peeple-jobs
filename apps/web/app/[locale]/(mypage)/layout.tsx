@@ -1,3 +1,4 @@
+import { UserHeader } from "@/app/components/UserHeader";
 import { UserSidebar } from "@/app/components/UserSidebar";
 
 export default function MyPageLayout({
@@ -6,11 +7,16 @@ export default function MyPageLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 gap-8">
-            <UserSidebar />
-            <main className="flex-1 min-w-0">
-                {children}
-            </main>
+        <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display text-slate-800 dark:text-slate-100">
+            <div className="flex h-screen w-full overflow-hidden">
+                <UserSidebar />
+                <main className="flex-1 flex flex-col h-full overflow-hidden relative">
+                    <UserHeader />
+                    <div className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar bg-background-light dark:bg-background-dark">
+                        {children}
+                    </div>
+                </main>
+            </div>
         </div>
     );
 }

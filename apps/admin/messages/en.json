@@ -1,0 +1,39 @@
+{
+    "Common": {
+        "loading": "Loading...",
+        "error": "Something went wrong",
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "search": "Search",
+        "status": "Status",
+        "actions": "Actions",
+        "view": "View"
+    },
+    "Auth": {
+        "loginTitle": "Admin Login",
+        "emailLabel": "Email Address",
+        "passwordLabel": "Password",
+        "rememberMe": "Remember me",
+        "signIn": "Sign in",
+        "forgotPassword": "Forgot your password?",
+        "footerText": "Protected by Peeple Jobs Admin Security"
+    },
+    "Navigation": {
+        "dashboard": "Dashboard",
+        "users": "User Management",
+        "companies": "Company Management",
+        "approvals": "Approvals",
+        "reports": "Reports & Moderation",
+        "payment": "Payments & Plans",
+        "settings": "Settings"
+    },
+    "Dashboard": {
+        "title": "Admin Dashboard",
+        "totalUsers": "Total Users",
+        "totalCompanies": "Total Companies",
+        "activeJobs": "Active Job Posts",
+        "revenue": "Total Revenue"
+    }
+}

@@ -29,12 +29,28 @@ export const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8">
-                        <Link href="/jobs" className="text-sm font-semibold text-primary">{t('jobs')}</Link>
-                        <Link href="/dashboard" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('dashboard')}</Link>
-                        <Link href="/interviews" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('interviews')}</Link>
-                        <Link href="/community" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('community')}</Link>
-                        <Link href="/chat" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('chat')}</Link>
-                        <Link href="/resume" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('resume')}</Link>
+                        {[
+                            { href: '/jobs', label: t('jobs') },
+                            { href: '/dashboard', label: t('dashboard') },
+                            { href: '/interviews', label: t('interviews') },
+                            { href: '/community', label: t('community') },
+                            { href: '/chat', label: t('chat') },
+                            { href: '/resume', label: t('resume') },
+                        ].map((link) => {
+                            const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
+                            return (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className={`text-sm font-medium transition-colors ${isActive
+                                            ? 'text-primary font-bold'
+                                            : 'text-text-main hover:text-primary dark:text-gray-300'
+                                        }`}
+                                >
+                                    {link.label}
+                                </Link>
+                            );
+                        })}
                     </div>
 
                     {/* Right Actions */}

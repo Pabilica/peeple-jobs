@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { TopHeader } from "../../components/TopHeader";
+import { TopHeader } from "@/app/components/TopHeader";
 
 // Mock Jobs
 const MOCK_JOBS = [
@@ -78,8 +78,8 @@ export default function JobManagementPage() {
                                         <td className="px-6 py-4 text-slate-600 dark:text-slate-400">{job.postedDate}</td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2 py-1 rounded-full text-xs font-bold ${job.status === 'Active' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                                                    job.status === 'Flagged' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                                                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                                job.status === 'Flagged' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                                                 }`}>
                                                 {job.status}
                                             </span>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { TopHeader } from "../../components/TopHeader";
+import { TopHeader } from "@/app/components/TopHeader";
 
 // Mock Report Data
 const MOCK_REPORTS = [

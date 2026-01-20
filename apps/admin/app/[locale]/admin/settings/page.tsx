@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { TopHeader } from "../../components/TopHeader";
+import { TopHeader } from "@/app/components/TopHeader";
 
 export default function AdminSettingsPage() {
     return (

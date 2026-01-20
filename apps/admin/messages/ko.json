@@ -1,0 +1,39 @@
+{
+    "Common": {
+        "loading": "로딩 중...",
+        "error": "문제가 발생했습니다",
+        "save": "저장",
+        "cancel": "취소",
+        "delete": "삭제",
+        "edit": "수정",
+        "search": "검색",
+        "status": "상태",
+        "actions": "관리",
+        "view": "보기"
+    },
+    "Auth": {
+        "loginTitle": "관리자 로그인",
+        "emailLabel": "이메일 주소",
+        "passwordLabel": "비밀번호",
+        "rememberMe": "로그인 유지",
+        "signIn": "로그인",
+        "forgotPassword": "비밀번호를 잊으셨나요?",
+        "footerText": "Protected by Peeple Jobs Admin Security"
+    },
+    "Navigation": {
+        "dashboard": "대시보드",
+        "users": "사용자 관리",
+        "companies": "기업 관리",
+        "approvals": "승인 관리",
+        "reports": "신고 및 중재",
+        "payment": "결제 및 플랜",
+        "settings": "설정"
+    },
+    "Dashboard": {
+        "title": "관리자 대시보드",
+        "totalUsers": "총 사용자",
+        "totalCompanies": "총 기업수",
+        "activeJobs": "진행중인 공고",
+        "revenue": "총 매출"
+    }
+}

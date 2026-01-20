@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { TopHeader } from "../../components/TopHeader";
+import { TopHeader } from "@/app/components/TopHeader";
 
 // Mock Transactions
 const MOCK_TRANSACTIONS = [
@@ -112,8 +112,8 @@ export default function PaymentManagementPage() {
                                         <td className="px-6 py-4 text-slate-600 dark:text-slate-400">{txn.date}</td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2 py-1 rounded-full text-xs font-bold ${txn.status === 'Paid' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                                                    txn.status === 'Refunded' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
-                                                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                                txn.status === 'Refunded' ? 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
+                                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                                                 }`}>
                                                 {txn.status}
                                             </span>

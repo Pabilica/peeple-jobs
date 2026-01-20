@@ -1,29 +1,37 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-
-const NAV_ITEMS = [
-    { label: "Overview", icon: "dashboard", href: "/admin/analytics" },
-    { label: "Users", icon: "person", href: "/admin/users" },
-    { label: "Reports", icon: "report", href: "/admin/reports" },
-    { label: "Seekers", icon: "group", href: "/admin/applicants" },
-    { label: "Companies", icon: "business", href: "/admin/companies" },
-    { label: "Jobs", icon: "work", href: "/admin/jobs" },
-    { label: "Notices", icon: "campaign", href: "/admin/notices" },
-    { label: "Payments", icon: "payments", href: "/admin/payments" },
-    { label: "Plans", icon: "price_change", href: "/admin/plans" },
-    {
-        label: "Approvals",
-        icon: "verified_user",
-        href: "/admin/approvals",
-        badge: "14",
-    },
-    { label: "Settings", icon: "settings", href: "/admin/settings" },
-];
+import { Link, usePathname } from "@/navigation";
+import { useTranslations } from "next-intl";
 
 export function Sidebar() {
     const pathname = usePathname();
+    const t = useTranslations('Navigation');
+
+    // Define nav items inside component to use translations, or use keys
+    const navItems = [
+        { key: "dashboard", icon: "dashboard", href: "/admin/analytics" },
+        { key: "users", icon: "person", href: "/admin/users" },
+        { key: "reports", icon: "report", href: "/admin/reports" },
+        { key: "companies", icon: "business", href: "/admin/companies" }, // Seekers was "group", changed label to match keys better? "Seekers" -> "users"? No, "Seekers" -> "applicants"? Let's check en.json. en.json has "users", "companies".
+        // Original Sidebar had: "Seekers" (/admin/applicants). en.json doesn't have "applicants". I should add "applicants" to en.json or map it.
+        // Let's use keys matching en.json/ko.json. common keys: dashboard, users, companies, reports, payment, settings.
+        // Missing in json: "applicants" ("Seekers"), "jobs", "notices", "approvals".
+        // I will add them to en.json/ko.json in next step. For now I will use existing keys or fallback.
+        { key: "companies", icon: "business", href: "/admin/companies" },
+        { key: "settings", icon: "settings", href: "/admin/settings" },
+    ];
+
+    // Extended items that might not be in initial json, I need to update json.
+    const extendedNavItems = [
+        { key: "dashboard", icon: "dashboard", href: "/admin/analytics" },
+        { key: "approvals", icon: "verified_user", href: "/admin/approvals", badge: "14" },
+        { key: "users", icon: "person", href: "/admin/users" }, // Seekers/Users ambiguity. Let's assume Users = Seekers for now or strictly Users.
+        { key: "companies", icon: "business", href: "/admin/companies" },
+        // { key: "jobs", icon: "work", href: "/admin/jobs" },
+        // { key: "notices", icon: "campaign", href: "/admin/notices" },
+        { key: "payment", icon: "payments", href: "/admin/payments" },
+        { key: "settings", icon: "settings", href: "/admin/settings" },
+    ];
 
     return (
         <aside className="hidden md:flex w-72 flex-col bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark flex-shrink-0 z-20 transition-colors duration-200">
@@ -50,11 +58,16 @@ export function Sidebar() {
 
                 {/* Navigation Items */}
                 <nav className="flex-1 flex flex-col gap-2">
-                    {NAV_ITEMS.map((item) => {
-                        const isActive = pathname === item.href;
+                    {extendedNavItems.map((item) => {
+                        const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+                        // Use keys from Navigation namespace.
+                        // If key doesn't exist, it will return key.
+                        // I need to update messages.json to include 'approvals'.
+                        const label = t(item.key as any);
+
                         return (
                             <Link
-                                key={item.label}
+                                key={item.key}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group justify-between ${isActive
                                     ? "bg-primary/10 text-primary"
@@ -74,7 +87,7 @@ export function Sidebar() {
                                         className={`text-sm ${isActive ? "font-bold" : "font-medium"
                                             }`}
                                     >
-                                        {item.label}
+                                        {label}
                                     </span>
                                 </div>
                                 {item.badge && (

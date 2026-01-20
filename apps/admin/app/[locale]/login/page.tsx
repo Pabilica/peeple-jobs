@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/navigation";
+import { useTranslations } from "next-intl";
 
 export default function AdminLoginPage() {
     const router = useRouter();
+    const t = useTranslations('Auth');
+    const tCommon = useTranslations('Common');
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -12,7 +15,7 @@ export default function AdminLoginPage() {
         e.preventDefault();
         // Mock Login Logic
         if (email === "admin@peeple.com" && password === "admin") {
-            router.push("/admin/analytics"); // Redirect to Dashboard
+            router.push("/admin/dashboard"); // Redirect to Dashboard
         } else {
             alert("Invalid credentials. Try admin@peeple.com / admin");
         }
@@ -25,13 +28,13 @@ export default function AdminLoginPage() {
                     <div className="bg-primary/10 w-16 h-16 rounded-xl flex items-center justify-center mx-auto mb-4">
                         <span className="material-symbols-outlined text-primary text-3xl">admin_panel_settings</span>
                     </div>
-                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Admin Console</h1>
-                    <p className="text-slate-500 text-sm mt-2">Please sign in to continue</p>
+                    <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t('loginTitle')}</h1>
+                    <p className="text-slate-500 text-sm mt-2">{t('footerText')}</p>
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
+                        <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">{t('emailLabel')}</label>
                         <input
                             type="email"
                             required
@@ -42,7 +45,7 @@ export default function AdminLoginPage() {
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Password</label>
+                        <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">{t('passwordLabel')}</label>
                         <input
                             type="password"
                             required
@@ -56,7 +59,7 @@ export default function AdminLoginPage() {
                         type="submit"
                         className="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5"
                     >
-                        Sign In
+                        {t('signIn')}
                     </button>
                 </form>
             </div>

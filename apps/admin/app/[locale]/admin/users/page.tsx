@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { TopHeader } from "../../components/TopHeader";
+import { TopHeader } from "@/app/components/TopHeader";
+import { useTranslations } from "next-intl";
 
 // Mock User Data
 const MOCK_USERS = [
@@ -53,6 +54,7 @@ const MOCK_USERS = [
 ];
 
 export default function UserManagementPage() {
+    const t = useTranslations('UserManagement');
     const [users, setUsers] = useState(MOCK_USERS);
     const [filterStatus, setFilterStatus] = useState("All");
 
@@ -71,7 +73,7 @@ export default function UserManagementPage() {
 
     return (
         <div className="flex flex-col h-screen h-[100dvh] bg-surface-ground overflow-hidden">
-            <TopHeader title="User Management" />
+            <TopHeader title={t('title')} />
 
             <div className="flex-1 overflow-y-auto p-6 md:p-12">
                 <div className="max-w-7xl mx-auto space-y-6">
@@ -87,7 +89,7 @@ export default function UserManagementPage() {
                                         : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
                                         }`}
                                 >
-                                    {status}
+                                    {t(`filters.${status.toLowerCase()}` as any)}
                                 </button>
                             ))}
                         </div>
@@ -97,7 +99,7 @@ export default function UserManagementPage() {
                             </span>
                             <input
                                 type="text"
-                                placeholder="Search users..."
+                                placeholder={t('searchPlaceholder')}
                                 className="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-surface-dark text-sm focus:ring-2 focus:ring-primary outline-none"
                             />
                         </div>
@@ -108,12 +110,12 @@ export default function UserManagementPage() {
                         <table className="w-full text-left text-sm">
                             <thead className="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
                                 <tr>
-                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">User</th>
-                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">Type</th>
-                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">Join Date</th>
-                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">Reports</th>
-                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">Status</th>
-                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white text-right">Actions</th>
+                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">{t('table.user')}</th>
+                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">{t('table.type')}</th>
+                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">{t('table.joinDate')}</th>
+                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">{t('table.reports')}</th>
+                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white">{t('table.status')}</th>
+                                    <th className="px-6 py-4 font-semibold text-slate-900 dark:text-white text-right">{t('table.actions')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -143,8 +145,8 @@ export default function UserManagementPage() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`px-2 py-1 rounded-full text-xs font-bold flex w-fit items-center gap-1 ${user.status === 'Active' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                                                    user.status === 'Suspended' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
-                                                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                                                user.status === 'Suspended' ? 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400' :
+                                                    'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
                                                 }`}>
                                                 <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
                                                 {user.status}

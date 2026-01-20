@@ -50,10 +50,6 @@ export const Navbar = () => {
                             <span className="material-symbols-outlined text-sm">swap_horiz</span>
                         </button>
 
-                        {/* My Page Link for Demo Access */}
-                        <Link href="/dashboard" className="hidden sm:block text-sm font-bold text-text-main dark:text-white hover:text-primary px-3 transition-colors">
-                            My Page
-                        </Link>
 
                         {/* Sign In is technically Login page */}
                         <Link href="/login" className="hidden sm:block text-sm font-bold text-text-main dark:text-white hover:text-primary px-3 transition-colors">

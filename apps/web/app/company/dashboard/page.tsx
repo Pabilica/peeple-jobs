@@ -34,15 +34,15 @@ export default function CompanyDashboardPage() {
                             <span className="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
                             <span>Candidates</span>
                         </Link>
-                        <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="#">
+                        <Link className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="/company/chat">
                             <span className="material-symbols-outlined group-hover:scale-110 transition-transform">chat_bubble</span>
                             <span>Messages</span>
                             <span className="ml-auto bg-accent text-white text-[10px] font-bold px-2 py-0.5 rounded-full">3</span>
-                        </a>
-                        <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="#">
+                        </Link>
+                        <Link className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="/company/settings">
                             <span className="material-symbols-outlined group-hover:scale-110 transition-transform">apartment</span>
                             <span>Company Profile</span>
-                        </a>
+                        </Link>
                     </nav>
                     <div className="p-4 border-t border-slate-100 dark:border-slate-800">
                         <div className="bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-700 rounded-xl p-4 text-white relative overflow-hidden group cursor-pointer">

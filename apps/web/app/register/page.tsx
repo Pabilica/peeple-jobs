@@ -36,7 +36,7 @@ export default function RegisterPage() {
 
                     {/* Company Card */}
                     <Link
-                        href="/company/register" // This page might not exist yet, but logically correct.
+                        href="/company/onboarding"
                         className="group relative flex flex-col items-center rounded-2xl border-2 border-transparent bg-white p-8 shadow-sm transition-all hover:border-purple-500 hover:shadow-lg"
                     >
                         <div className="mb-6 rounded-full bg-purple-100 p-6 transition-colors group-hover:bg-purple-200">

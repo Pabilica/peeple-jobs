@@ -35,5 +35,23 @@
         "totalCompanies": "총 기업수",
         "activeJobs": "진행중인 공고",
         "revenue": "총 매출"
+    },
+    "UserManagement": {
+        "title": "사용자 관리",
+        "filters": {
+            "all": "전체",
+            "active": "활성",
+            "suspended": "정지됨",
+            "banned": "차단됨"
+        },
+        "searchPlaceholder": "사용자 검색...",
+        "table": {
+            "user": "사용자",
+            "type": "유형",
+            "joinDate": "가입일",
+            "reports": "신고",
+            "status": "상태",
+            "actions": "관리"
+        }
     }
 }

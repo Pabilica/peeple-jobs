@@ -35,5 +35,23 @@
         "totalCompanies": "Total Companies",
         "activeJobs": "Active Job Posts",
         "revenue": "Total Revenue"
+    },
+    "UserManagement": {
+        "title": "User Management",
+        "filters": {
+            "all": "All",
+            "active": "Active",
+            "suspended": "Suspended",
+            "banned": "Banned"
+        },
+        "searchPlaceholder": "Search users...",
+        "table": {
+            "user": "User",
+            "type": "Type",
+            "joinDate": "Join Date",
+            "reports": "Reports",
+            "status": "Status",
+            "actions": "Actions"
+        }
     }
 }

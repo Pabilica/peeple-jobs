@@ -13,12 +13,8 @@ export default function AdminLoginPage() {
 
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
-        // Mock Login Logic
-        if (email === "admin@peeple.com" && password === "admin") {
-            router.push("/admin/dashboard"); // Redirect to Dashboard
-        } else {
-            alert("Invalid credentials. Try admin@peeple.com / admin");
-        }
+        // Mock Login Logic - Allow any input
+        router.push("/admin/analytics");
     };
 
     return (
@@ -37,7 +33,6 @@ export default function AdminLoginPage() {
                         <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">{t('emailLabel')}</label>
                         <input
                             type="email"
-                            required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary outline-none transition-all"
@@ -48,7 +43,6 @@ export default function AdminLoginPage() {
                         <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">{t('passwordLabel')}</label>
                         <input
                             type="password"
-                            required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 focus:ring-2 focus:ring-primary outline-none transition-all"

@@ -30,28 +30,12 @@ export const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8">
-                        {[
-                            { href: '/jobs', label: t('jobs') },
-                            { href: '/dashboard', label: t('dashboard') },
-                            { href: '/interviews', label: t('interviews') },
-                            { href: '/community', label: t('community') },
-                            { href: '/chat', label: t('chat') },
-                            { href: '/resume', label: t('resume') },
-                        ].map((link) => {
-                            const isActive = pathname === link.href || pathname.startsWith(link.href + '/');
-                            return (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className={`text-sm font-medium transition-colors ${isActive
-                                        ? 'text-primary font-bold'
-                                        : 'text-text-main hover:text-primary dark:text-gray-300'
-                                        }`}
-                                >
-                                    {link.label}
-                                </Link>
-                            );
-                        })}
+                        <Link href="/jobs" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">
+                            {t('jobs')}
+                        </Link>
+                        <Link href="/community" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">
+                            {t('community')}
+                        </Link>
                     </div>
 
                     {/* Right Actions */}
@@ -65,11 +49,18 @@ export const Navbar = () => {
                             <span>{locale === 'en' ? 'EN' : 'KO'}</span>
                             <span className="material-symbols-outlined text-sm">swap_horiz</span>
                         </button>
+
+                        {/* My Page Link for Demo Access */}
+                        <Link href="/dashboard" className="hidden sm:block text-sm font-bold text-text-main dark:text-white hover:text-primary px-3 transition-colors">
+                            My Page
+                        </Link>
+
+                        {/* Sign In is technically Login page */}
                         <Link href="/login" className="hidden sm:block text-sm font-bold text-text-main dark:text-white hover:text-primary px-3 transition-colors">
                             {t('signIn')}
                         </Link>
                         <Link href="/company/dashboard" className="bg-primary hover:bg-primary-hover text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 active:translate-y-0">
-                            {t('postJob')}
+                            {t('companyLogin')}
                         </Link>
                     </div>
                 </div>

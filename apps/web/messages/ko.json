@@ -7,7 +7,8 @@
         "chat": "채팅",
         "resume": "이력서",
         "signIn": "로그인",
-        "postJob": "채용 공고 등록"
+        "postJob": "채용 공고 등록",
+        "companyLogin": "기업회원 로그인"
     },
     "Footer": {
         "tagline": "한국에서 기회를 찾는 글로벌 인재를 위한 연결 고리.",

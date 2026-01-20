@@ -7,7 +7,8 @@
         "chat": "Chat",
         "resume": "Resume",
         "signIn": "Sign In",
-        "postJob": "Post a Job"
+        "postJob": "Post a Job",
+        "companyLogin": "Company Login"
     },
     "Footer": {
         "tagline": "Connecting global talent with opportunities in South Korea.",

@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from '@/navigation';
+import { Link, useRouter } from '@/navigation';
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { RiKakaoTalkFill } from "react-icons/ri";
@@ -9,6 +9,11 @@ import { useTranslations } from 'next-intl';
 export default function LoginPage() {
     const [phone, setPhone] = useState("");
     const t = useTranslations('Auth');
+    const router = useRouter();
+
+    const handleMockLogin = () => {
+        router.push('/dashboard');
+    };
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
@@ -27,6 +32,7 @@ export default function LoginPage() {
                 <div className="space-y-3">
                     <button
                         type="button"
+                        onClick={handleMockLogin}
                         className="flex w-full items-center justify-center gap-3 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
                         <FcGoogle className="h-5 w-5" />
@@ -34,6 +40,7 @@ export default function LoginPage() {
                     </button>
                     <button
                         type="button"
+                        onClick={handleMockLogin}
                         className="flex w-full items-center justify-center gap-3 rounded-lg border border-transparent bg-[#FEE500] px-4 py-3 text-sm font-medium text-black hover:bg-[#FDD835] focus:outline-none focus:ring-2 focus:ring-[#FEE500] focus:ring-offset-2"
                     >
                         <RiKakaoTalkFill className="h-5 w-5" />
@@ -53,7 +60,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Phone Login */}
-                <form className="mt-8 space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <form className="mt-8 space-y-6" onSubmit={(e) => { e.preventDefault(); handleMockLogin(); }}>
                     <div>
                         <label
                             htmlFor="phone"

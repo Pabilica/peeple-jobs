@@ -66,7 +66,7 @@ export default function DashboardPage() {
                             <div className="lg:col-span-2 flex flex-col gap-4">
                                 <div className="flex items-center justify-between">
                                     <h2 className="text-lg font-bold text-slate-900 dark:text-white">Recent Applications</h2>
-                                    <Link href="/jobs" className="text-primary text-sm font-bold hover:underline">View All</Link>
+                                    <Link href="/applications" className="text-primary text-sm font-bold hover:underline">View All</Link>
                                 </div>
                                 <div className="bg-white dark:bg-[#1e1e1e] rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm overflow-hidden">
                                     {/* Mock Application Item */}

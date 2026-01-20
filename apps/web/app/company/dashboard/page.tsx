@@ -25,15 +25,15 @@ export default function CompanyDashboardPage() {
                             <span className="material-symbols-outlined icon-filled">dashboard</span>
                             <span>Dashboard</span>
                         </a>
-                        <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="#">
+                        <Link className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="/company/postings">
                             <span className="material-symbols-outlined group-hover:scale-110 transition-transform">work</span>
                             <span>Jobs</span>
                             <span className="ml-auto bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-[10px] font-bold px-2 py-0.5 rounded-full">8</span>
-                        </a>
-                        <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="#">
+                        </Link>
+                        <Link className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="/company/applicants">
                             <span className="material-symbols-outlined group-hover:scale-110 transition-transform">group</span>
                             <span>Candidates</span>
-                        </a>
+                        </Link>
                         <a className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white transition-all font-medium group" href="#">
                             <span className="material-symbols-outlined group-hover:scale-110 transition-transform">chat_bubble</span>
                             <span>Messages</span>
@@ -107,10 +107,10 @@ export default function CompanyDashboardPage() {
                                     <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">Good morning, TechCorp</h2>
                                     <p className="text-slate-500 dark:text-slate-400 mt-2 text-base">Here is your hiring pipeline update for Seoul & Busan branches.</p>
                                 </div>
-                                <button className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 whitespace-nowrap">
+                                <Link href="/company/postings/create" className="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 whitespace-nowrap">
                                     <span className="material-symbols-outlined text-[20px]">add</span>
                                     Post a New Job
-                                </button>
+                                </Link>
                             </div>
 
                             {/* Metrics Grid */}

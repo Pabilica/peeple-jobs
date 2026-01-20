@@ -33,9 +33,9 @@ export const Navbar = () => {
                         <button className="hidden sm:block text-sm font-bold text-text-main dark:text-white hover:text-primary px-3 transition-colors">
                             Sign In
                         </button>
-                        <button className="bg-primary hover:bg-primary-hover text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 active:translate-y-0">
+                        <Link href="/company/dashboard" className="bg-primary hover:bg-primary-hover text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 active:translate-y-0">
                             Post a Job
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

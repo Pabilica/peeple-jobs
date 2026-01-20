@@ -18,7 +18,9 @@ export const Navbar = () => {
                     <div className="hidden md:flex items-center gap-8">
                         <Link href="/jobs" className="text-sm font-semibold text-primary">Jobs</Link>
                         <Link href="/dashboard" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Dashboard</Link>
-                        <Link href="/onboarding/visa" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Visa Guide</Link>
+                        <Link href="/interviews" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Interviews</Link>
+                        <Link href="/community" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Community</Link>
+                        <Link href="/chat" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Chat</Link>
                         <Link href="/resume" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Resume</Link>
                     </div>
 

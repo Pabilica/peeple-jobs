@@ -20,12 +20,13 @@ export const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
-                    <div className="flex items-center gap-2 cursor-pointer group">
+                    {/* Logo */}
+                    <Link href="/" className="flex items-center gap-2 cursor-pointer group">
                         <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/30 group-hover:scale-105 transition-transform">
                             <span className="material-symbols-outlined">work</span>
                         </div>
                         <span className="text-xl font-extrabold tracking-tight text-text-main dark:text-white">Peeple Jobs</span>
-                    </div>
+                    </Link>
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8">
@@ -43,8 +44,8 @@ export const Navbar = () => {
                                     key={link.href}
                                     href={link.href}
                                     className={`text-sm font-medium transition-colors ${isActive
-                                            ? 'text-primary font-bold'
-                                            : 'text-text-main hover:text-primary dark:text-gray-300'
+                                        ? 'text-primary font-bold'
+                                        : 'text-text-main hover:text-primary dark:text-gray-300'
                                         }`}
                                 >
                                     {link.label}

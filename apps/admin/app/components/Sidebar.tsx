@@ -37,7 +37,7 @@ export function Sidebar() {
         <aside className="hidden md:flex w-72 flex-col bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark flex-shrink-0 z-20 transition-colors duration-200">
             <div className="flex flex-col h-full p-4">
                 {/* Logo Area */}
-                <div className="flex items-center gap-3 px-2 mb-8 mt-2">
+                <Link href="/" className="flex items-center gap-3 px-2 mb-8 mt-2">
                     <div className="bg-primary/10 rounded-xl p-2">
                         <span
                             className="material-symbols-outlined text-primary"
@@ -54,7 +54,7 @@ export function Sidebar() {
                             Admin Console
                         </p>
                     </div>
-                </div>
+                </Link>
 
                 {/* Navigation Items */}
                 <nav className="flex-1 flex flex-col gap-2">

@@ -1,12 +1,21 @@
 "use client";
 
-export function TopHeader() {
+interface TopHeaderProps {
+    title?: string;
+}
+
+export function TopHeader({ title }: TopHeaderProps) {
     return (
         <header className="flex-shrink-0 h-20 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-border-light dark:border-border-dark flex items-center justify-between px-6 z-10 sticky top-0">
             <div className="flex items-center gap-4 flex-1">
                 <button className="md:hidden p-2 text-slate-500 hover:text-primary">
                     <span className="material-symbols-outlined">menu</span>
                 </button>
+                {title && (
+                    <h1 className="text-xl font-bold text-slate-900 dark:text-white mr-8 hidden md:block">
+                        {title}
+                    </h1>
+                )}
                 {/* Search Bar */}
                 <div className="relative w-full max-w-md hidden sm:block">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

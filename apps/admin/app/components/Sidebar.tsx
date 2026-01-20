@@ -5,16 +5,20 @@ import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
     { label: "Overview", icon: "dashboard", href: "/admin/analytics" },
+    { label: "Users", icon: "person", href: "/admin/users" },
+    { label: "Reports", icon: "report", href: "/admin/reports" },
     { label: "Seekers", icon: "group", href: "/admin/applicants" },
     { label: "Companies", icon: "business", href: "/admin/companies" },
     { label: "Jobs", icon: "work", href: "/admin/jobs" },
+    { label: "Notices", icon: "campaign", href: "/admin/notices" },
+    { label: "Payments", icon: "payments", href: "/admin/payments" },
+    { label: "Plans", icon: "price_change", href: "/admin/plans" },
     {
         label: "Approvals",
         icon: "verified_user",
         href: "/admin/approvals",
         badge: "14",
     },
-    { label: "Analytics", icon: "analytics", href: "/admin/analytics" }, // Duplicate href for now, maybe different view
     { label: "Settings", icon: "settings", href: "/admin/settings" },
 ];
 
@@ -53,15 +57,15 @@ export function Sidebar() {
                                 key={item.label}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all group justify-between ${isActive
-                                        ? "bg-primary/10 text-primary"
-                                        : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
+                                    ? "bg-primary/10 text-primary"
+                                    : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800"
                                     }`}
                             >
                                 <div className="flex items-center gap-3">
                                     <span
                                         className={`material-symbols-outlined transition-colors ${isActive
-                                                ? "text-primary"
-                                                : "text-slate-400 group-hover:text-primary"
+                                            ? "text-primary"
+                                            : "text-slate-400 group-hover:text-primary"
                                             }`}
                                     >
                                         {item.icon}

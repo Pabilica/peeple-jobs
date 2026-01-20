@@ -18,6 +18,11 @@ export default function JobDetailsPage() {
     // Use the found job or default to the first one for robustness during demo
     const displayJob = job || RECOMMENDED_JOBS[0];
 
+    // Mock state for interactions
+    const [isSaved, setIsSaved] = React.useState(false);
+    const [isFollowing, setIsFollowing] = React.useState(false);
+
+
     return (
         <div className="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display">
             <Navbar />
@@ -106,9 +111,12 @@ export default function JobDetailsPage() {
                                     Apply Now
                                     <span className="material-symbols-outlined text-lg">open_in_new</span>
                                 </button>
-                                <button className="w-full h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center justify-center gap-2">
-                                    <span className="material-symbols-outlined text-lg">bookmark_border</span>
-                                    Save Job
+                                <button
+                                    onClick={() => setIsSaved(!isSaved)}
+                                    className={`w-full h-12 rounded-xl border font-bold transition-colors flex items-center justify-center gap-2 ${isSaved ? 'bg-primary/10 text-primary border-primary' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border-transparent hover:bg-slate-200 dark:hover:bg-slate-700'}`}
+                                >
+                                    <span className={`material-symbols-outlined text-lg ${isSaved ? 'font-variation-FILL' : ''}`}>{isSaved ? 'bookmark' : 'bookmark_border'}</span>
+                                    {isSaved ? 'Saved' : 'Save Job'}
                                 </button>
                             </div>
 
@@ -129,7 +137,13 @@ export default function JobDetailsPage() {
                         </div>
 
                         {/* Company Info */}
-                        <div className="bg-white dark:bg-[#1e1e1e] rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div className="bg-white dark:bg-[#1e1e1e] rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 relative">
+                            <button
+                                onClick={() => setIsFollowing(!isFollowing)}
+                                className="absolute top-6 right-6 text-sm font-bold text-primary hover:underline"
+                            >
+                                {isFollowing ? 'Following' : '+ Follow'}
+                            </button>
                             <h4 className="font-bold text-slate-900 dark:text-white mb-3">About {displayJob.company}</h4>
                             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
                                 A leading technology company innovating in the global market. Committed to diversity and inclusion.

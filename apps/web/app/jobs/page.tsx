@@ -111,7 +111,17 @@ export default function JobSearchPage() {
                     {/* Job List */}
                     <div className="flex flex-col gap-4">
                         {RECOMMENDED_JOBS.map((job) => (
-                            <Link href={`/jobs/${job.id}`} key={job.id} className="bg-white dark:bg-[#1e1e1e] p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-primary/30 transition-all group">
+                            <Link href={`/jobs/${job.id}`} key={job.id} className="bg-white dark:bg-[#1e1e1e] p-5 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-primary/30 transition-all group relative">
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        // Handle scrap logic here
+                                        alert('Scrapped!');
+                                    }}
+                                    className="absolute top-4 right-4 z-10 text-slate-300 hover:text-primary transition-colors"
+                                >
+                                    <span className="material-symbols-outlined text-[24px]">bookmark</span>
+                                </button>
                                 <div className="flex flex-col sm:flex-row gap-4">
                                     {/* Logo */}
                                     <div className={`w-14 h-14 rounded-lg bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-xl font-bold shrink-0 ${job.logoColor}`}>

@@ -13,15 +13,9 @@ export function CompanyHeader() {
                 </button>
                 <span className="font-bold text-lg text-slate-900 dark:text-white">Peeple Jobs</span>
             </div>
-            <div className="hidden lg:flex items-center text-slate-400 gap-2">
-                <span className="material-symbols-outlined text-[20px]">search</span>
-                <span className="text-sm">{t('searchPlaceholder')}</span>
-            </div>
+
             <div className="flex items-center gap-3 ml-auto">
-                <button className="lg:hidden p-2 text-slate-500">
-                    <span className="material-symbols-outlined">search</span>
-                </button>
-                <div className="h-8 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1"></div>
+
                 <button className="relative p-2 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors">
                     <span className="material-symbols-outlined text-[22px]">notifications</span>
                     <span className="absolute top-2 right-2 size-2 bg-accent rounded-full border-2 border-surface-light dark:border-surface-dark"></span>

@@ -98,7 +98,7 @@ export default function CompanySettingsPage() {
                                     </div>
                                     <div className="flex items-center gap-3">
                                         <span className="font-bold text-xl text-primary">$49<span className="text-sm text-slate-500 font-normal">/mo</span></span>
-                                        <button className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-700">Manage Plan</button>
+                                        <Link href="/company/subscription" className="px-4 py-2 border border-slate-300 dark:border-slate-600 rounded-lg text-sm font-bold hover:bg-slate-100 dark:hover:bg-slate-700">Manage Plan</Link>
                                     </div>
                                 </div>
 

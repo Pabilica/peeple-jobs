@@ -1,7 +1,12 @@
-import Link from 'next/link';
+"use client";
+
 import React from 'react';
+import { Link } from '@/navigation';
+import { useTranslations } from 'next-intl';
 
 export const Hero = () => {
+    const t = useTranslations('Hero');
+
     return (
         <header className="relative w-full pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden">
             {/* Abstract Background Elements */}
@@ -11,14 +16,14 @@ export const Hero = () => {
                 <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6 border border-primary/20">
                         <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                        #1 Platform for Expats
+                        {t('badge')}
                     </div>
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-text-main dark:text-white tracking-tight leading-[1.1] mb-6">
-                        Launch Your Career in <br className="hidden sm:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">South Korea</span>
+                        {t('titlePrefix')} <br className="hidden sm:block" />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">{t('titleHighlight')}</span>
                     </h1>
                     <p className="text-lg sm:text-xl text-text-muted dark:text-gray-300 max-w-2xl mb-10 leading-relaxed">
-                        Connect with verified companies offering visa support. From tech startups in Gangnam to manufacturing in Busan, we speak your language.
+                        {t('subtitle')}
                     </p>
                     {/* Floating Search Bar */}
                     <div className="w-full max-w-4xl bg-surface-light dark:bg-surface-dark p-3 rounded-2xl shadow-soft dark:shadow-none dark:border dark:border-gray-700 flex flex-col md:flex-row items-center gap-3 md:gap-0">
@@ -29,7 +34,7 @@ export const Hero = () => {
                             </div>
                             <input
                                 className="w-full h-14 pl-12 pr-4 bg-transparent border-none outline-none focus:ring-0 text-text-main dark:text-white placeholder-gray-400 text-base md:border-r border-gray-100 dark:border-gray-700 rounded-xl md:rounded-none md:rounded-l-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                                placeholder="Job title, keywords, or company"
+                                placeholder={t('searchPlaceholder')}
                                 type="text"
                             />
                         </div>
@@ -39,7 +44,7 @@ export const Hero = () => {
                                 <span className="material-symbols-outlined">location_on</span>
                             </div>
                             <select className="w-full h-14 pl-12 pr-10 bg-transparent border-none outline-none focus:ring-0 text-text-main dark:text-white text-base appearance-none cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-xl md:rounded-none" defaultValue="">
-                                <option className="text-gray-400" disabled value="">Select Location</option>
+                                <option className="text-gray-400" disabled value="">{t('selectLocation')}</option>
                                 <option value="seoul">Seoul</option>
                                 <option value="busan">Busan</option>
                                 <option value="incheon">Incheon</option>
@@ -55,7 +60,7 @@ export const Hero = () => {
                                 <span className="material-symbols-outlined">badge</span>
                             </div>
                             <select className="w-full h-14 pl-12 pr-10 bg-transparent border-none outline-none focus:ring-0 text-text-main dark:text-white text-base appearance-none cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors rounded-xl md:rounded-none" defaultValue="">
-                                <option disabled value="">Visa Type</option>
+                                <option disabled value="">{t('visaType')}</option>
                                 <option value="e7">E-7 (Specific Activity)</option>
                                 <option value="f2">F-2 (Resident)</option>
                                 <option value="f4">F-4 (Overseas Korean)</option>
@@ -69,12 +74,12 @@ export const Hero = () => {
                         {/* Search Button */}
                         <div className="p-1 w-full md:w-auto">
                             <button className="w-full md:w-auto h-12 px-8 bg-primary hover:bg-primary-hover text-white font-bold rounded-xl shadow-lg shadow-primary/25 transition-all flex items-center justify-center gap-2">
-                                <span>Search</span>
+                                <span>{t('searchButton')}</span>
                             </button>
                         </div>
                     </div>
                     <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-text-muted dark:text-gray-400">
-                        <span>Popular:</span>
+                        <span>{t('popular')}</span>
                         <Link className="underline decoration-gray-300 hover:text-primary transition-colors" href="#">English Teacher</Link>
                         <Link className="underline decoration-gray-300 hover:text-primary transition-colors" href="#">Frontend Developer</Link>
                         <Link className="underline decoration-gray-300 hover:text-primary transition-colors" href="#">Factory Worker</Link>

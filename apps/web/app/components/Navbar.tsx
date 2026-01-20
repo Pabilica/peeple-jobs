@@ -1,7 +1,20 @@
-import Link from 'next/link';
+"use client";
+
 import React from 'react';
+import { Link, usePathname, useRouter } from '@/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 
 export const Navbar = () => {
+    const t = useTranslations('Navbar');
+    const locale = useLocale();
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const switchLocale = () => {
+        const nextLocale = locale === 'en' ? 'ko' : 'en';
+        router.replace(pathname, { locale: nextLocale });
+    };
+
     return (
         <nav className="sticky top-0 z-50 w-full bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,27 +29,30 @@ export const Navbar = () => {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex items-center gap-8">
-                        <Link href="/jobs" className="text-sm font-semibold text-primary">Jobs</Link>
-                        <Link href="/dashboard" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Dashboard</Link>
-                        <Link href="/interviews" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Interviews</Link>
-                        <Link href="/community" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Community</Link>
-                        <Link href="/chat" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Chat</Link>
-                        <Link href="/resume" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">Resume</Link>
+                        <Link href="/jobs" className="text-sm font-semibold text-primary">{t('jobs')}</Link>
+                        <Link href="/dashboard" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('dashboard')}</Link>
+                        <Link href="/interviews" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('interviews')}</Link>
+                        <Link href="/community" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('community')}</Link>
+                        <Link href="/chat" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('chat')}</Link>
+                        <Link href="/resume" className="text-sm font-medium text-text-main hover:text-primary dark:text-gray-300 transition-colors">{t('resume')}</Link>
                     </div>
 
                     {/* Right Actions */}
                     <div className="flex items-center gap-4">
                         {/* Language Selector */}
-                        <button className="hidden sm:flex items-center gap-1 text-sm font-medium text-text-main dark:text-white px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                        <button
+                            onClick={switchLocale}
+                            className="hidden sm:flex items-center gap-1 text-sm font-medium text-text-main dark:text-white px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        >
                             <span className="material-symbols-outlined text-xl">language</span>
-                            <span>EN</span>
-                            <span className="material-symbols-outlined text-sm">expand_more</span>
+                            <span>{locale === 'en' ? 'EN' : 'KO'}</span>
+                            <span className="material-symbols-outlined text-sm">swap_horiz</span>
                         </button>
-                        <button className="hidden sm:block text-sm font-bold text-text-main dark:text-white hover:text-primary px-3 transition-colors">
-                            Sign In
-                        </button>
+                        <Link href="/login" className="hidden sm:block text-sm font-bold text-text-main dark:text-white hover:text-primary px-3 transition-colors">
+                            {t('signIn')}
+                        </Link>
                         <Link href="/company/dashboard" className="bg-primary hover:bg-primary-hover text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow-lg shadow-primary/20 transition-all hover:-translate-y-0.5 active:translate-y-0">
-                            Post a Job
+                            {t('postJob')}
                         </Link>
                     </div>
                 </div>
